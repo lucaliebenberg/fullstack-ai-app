@@ -1,7 +1,7 @@
 const NewUser = () => {
   return (
     <div>
-      <p>Hello world</p>
+      <p className="text-red text-[2rem]">Hello world</p>
     </div>
   )
 }
