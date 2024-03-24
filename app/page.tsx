@@ -1,6 +1,12 @@
 import Image from 'next/image'
+import { auth } from '@clerk/nextjs'
+require('dotenv').config()
 
-export default function Home() {
+
+export default async function Home() {
+  const {userId} = await auth()
+  let href = userId ? '/journal' : '/new-user'
+
   return (
     <div className="w-screen h-screen bg-black flex justify-center items-center text-white">
       <div className="w-full max-w-[600px] mx-auto">
@@ -10,7 +16,7 @@ export default function Home() {
           today!
         </p>
         <div>
-          <a href="/journal">
+          <a href={href}>
             <button className="bg-green-600 p-3 rounded-md">get started</button>
           </a>
         </div>
