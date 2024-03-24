@@ -2,6 +2,7 @@ import { getUserByClerkID } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
+// @ts-ignore
 export const PATCH = async (request, {params}) => {
     const { content } = await request.json()
 
