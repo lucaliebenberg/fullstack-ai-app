@@ -10,7 +10,7 @@ const getEntry = async (id) => {
             userId_id: {
                 userId: user.id,
                 id,
-            }
+            },
         },
         include: {
             analysis: true

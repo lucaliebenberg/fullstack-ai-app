@@ -4,22 +4,30 @@ import { revalidatePath } from "next/cache"
 import { analyze } from "@/utils/ai"
 import { prisma } from "@/utils/db"
 
-export const POST = async () => {
+export const POST = async (request:Request) => {
+    const data = await request.json()
     const user = await getUserByClerkID();
-    const entry = await prisma.journalEntry.create({
-        data: {
-            userId: user.id,
-            content: 'Write about your day',
-        }
-    })
-
-    const analysis = await analyze(entry.content)
-    await prisma.analysis.create({
-        data: {
-            entryId: entry.id,
-            ...analysis,
+  const entry = await prisma.journalEntry.create({
+    data: {
+      content: data.content,
+      user: {
+        connect: {
+          id: user.id,
         },
-    })
+      },
+      analysis: {
+        create: {
+          mood: 'Neutral',
+          subject: 'None',
+          negative: false,
+          summary: 'None',
+          sentimentScore: 0,
+          color: '#0101fe',
+          userId: user.id,
+        },
+      },
+    },
+  })
 
     revalidatePath('/journal')
 
