@@ -51,6 +51,7 @@ model Analysis {
   color   String
   negative Boolean
   subject String
+  sentimentScore Float @default(0)
 
   @@unique([entryId])
 }
